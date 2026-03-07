@@ -10,7 +10,8 @@
  * 5. Drop-in UI component for API key input and model selection
  */
 
-const GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta/models";
+const GEMINI_API_MODELS = "/api/models";
+const GEMINI_API_GENERATE = "/api/generate";
 
 // Known fallback cascade if discovery fails
 const MODEL_CASCADE = [
@@ -29,14 +30,11 @@ const MODEL_TIER_SCORES = {
     "lite": 25
 };
 
-// Fallback API Key provided by user for public zero-config usage
-const DEFAULT_FALLBACK_KEY = "***REDACTED_API_KEY***";
-
 class GeminiClient {
     constructor(apiKeyStorageKey = "gemini_api_key") {
         this.storageKey = apiKeyStorageKey;
-        this.apiKey = localStorage.getItem(this.storageKey) || DEFAULT_FALLBACK_KEY;
-        this.isUsingDefaultKey = this.apiKey === DEFAULT_FALLBACK_KEY;
+        this.apiKey = localStorage.getItem(this.storageKey) || "";
+        this.isUsingDefaultKey = !this.apiKey;
         this.availableModels = [];
         this.selectedModel = localStorage.getItem("gemini_selected_model") || "";
     }
@@ -51,7 +49,7 @@ class GeminiClient {
     }
 
     hasApiKey() {
-        return !!this.apiKey && this.apiKey.length > 20;
+        return true; // Proxy handles the keys, we always assume safe to request
     }
 
     // Score models like the Python backend
@@ -85,10 +83,11 @@ class GeminiClient {
     }
 
     async discoverModels() {
-        if (!this.hasApiKey()) throw new Error("API Key required to fetch models");
-
         try {
-            const response = await fetch(`${GEMINI_API_BASE}?key=${this.apiKey}`);
+            const headers = {};
+            if (this.apiKey) headers["x-gemini-api-key"] = this.apiKey;
+
+            const response = await fetch(GEMINI_API_MODELS, { headers });
             if (!response.ok) {
                 const err = await response.json();
                 throw new Error(err.error?.message || "Failed to fetch models");
@@ -150,11 +149,15 @@ class GeminiClient {
             payload.systemInstruction = { parts: [{ text: systemInstruction }] };
         }
 
-        const url = `${GEMINI_API_BASE}/${this.selectedModel}:generateContent?key=${this.apiKey}`;
+        // Add model to payload to be read by proxy
+        payload.model = this.selectedModel;
 
-        const response = await fetch(url, {
+        const headers = { 'Content-Type': 'application/json' };
+        if (this.apiKey) headers["x-gemini-api-key"] = this.apiKey;
+
+        const response = await fetch(GEMINI_API_GENERATE, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: headers,
             body: JSON.stringify(payload)
         });
 
@@ -331,7 +334,7 @@ class GeminiClient {
             const keyInput = document.getElementById('gemini-ui-key').value;
             if (!keyInput.includes('*') && keyInput !== this.apiKey) {
                 if (keyInput.trim() === '') {
-                    this.setApiKey(DEFAULT_FALLBACK_KEY);
+                    this.setApiKey('');
                     this.isUsingDefaultKey = true;
                     localStorage.removeItem(this.storageKey);
                 } else {
