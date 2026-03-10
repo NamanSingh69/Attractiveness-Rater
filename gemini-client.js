@@ -161,15 +161,18 @@ class GeminiClient {
             }
             return pros[0]?.name || this._getDefaultModel();
         } else {
-            // Fast mode — find best flash/flash-lite
-            const flashes = models.filter(m => m.name.includes("flash"));
+            // Fast mode — prefer flash-lite specifically (highest quota: 1000/day, lowest latency)
+            const flashLites = models.filter(m => m.name.includes("flash-lite"));
             if (this.needsRealTimeData) {
-                const rt = flashes.find(m => m.name.includes("2.5"));
+                const rt = flashLites.find(m => m.name.includes("2.5"));
                 if (rt) return rt.name;
             } else {
-                const st = flashes.find(m => m.name.includes("3.1"));
+                const st = flashLites.find(m => m.name.includes("3.1"));
                 if (st) return st.name;
             }
+            if (flashLites[0]) return flashLites[0].name;
+            // Fallback to any flash model if no flash-lite exists
+            const flashes = models.filter(m => m.name.includes("flash") && !m.name.includes("image"));
             return flashes[0]?.name || this._getDefaultModel();
         }
     }
@@ -282,6 +285,7 @@ class GeminiClient {
         this.selectedModel = this.getActiveModel();
         localStorage.setItem("gemini_selected_model", this.selectedModel);
         this._updateModeUI();
+        this._updateModelUsedBadge(this.selectedModel);
         this._updateRateLimitUI();
     }
 
