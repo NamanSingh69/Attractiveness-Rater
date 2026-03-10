@@ -6,7 +6,7 @@
             "use": "@vercel/node"
         },
         {
-            "src": "App.html",
+            "src": "index.html",
             "use": "@vercel/static"
         }
     ],
@@ -17,7 +17,7 @@
         },
         {
             "src": "/(.*)",
-            "dest": "/App.html"
+            "dest": "/index.html"
         }
     ]
 }

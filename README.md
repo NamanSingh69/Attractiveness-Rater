@@ -49,8 +49,6 @@ start App.html          # Windows
 The app currently calls Gemini directly from JavaScript. For resilience, you can implement client-side fallback:
 ```javascript
 const MODEL_CASCADE = [
-  "gemini-2.5-pro",
-  "gemini-2.5-flash",
-  "gemini-flash-latest"
+gemini-3.1-pro-preview` → `gemini-3-flash-preview` → `gemini-3.1-flash-lite-preview`
 ];
 ```
