@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>??</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>??</text></svg>">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aura: Facial Analysis Interface</title>
@@ -11,7 +12,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap"
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <style>
+    <style>
         :root {
             --primary: #00f2ff;
             --bg-dark: #050505;
@@ -129,11 +130,18 @@
                 transform: translateY(0);
             }
         }
+
         /* Skeleton Shimmer */
         @keyframes shimmer {
-            0% { background-position: -200px 0; }
-            100% { background-position: calc(200px + 100%) 0; }
+            0% {
+                background-position: -200px 0;
+            }
+
+            100% {
+                background-position: calc(200px + 100%) 0;
+            }
         }
+
         .skeleton {
             background: linear-gradient(90deg, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%);
             background-size: 200px 100%;
@@ -156,17 +164,49 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
             max-width: 90vw;
         }
+
         .toast.show {
             right: 20px;
         }
-        .toast-success { border-left: 4px solid #10b981; background: rgba(16, 185, 129, 0.1); backdrop-filter: blur(12px); border-top: 1px solid rgba(16,185,129,0.2); border-right: 1px solid rgba(16,185,129,0.2); border-bottom: 1px solid rgba(16,185,129,0.2); }
-        .toast-error { border-left: 4px solid #ef4444; background: rgba(239, 68, 68, 0.1); backdrop-filter: blur(12px); border-top: 1px solid rgba(239,68,68,0.2); border-right: 1px solid rgba(239,68,68,0.2); border-bottom: 1px solid rgba(239,68,68,0.2); }
-        .toast-info { border-left: 4px solid #3b82f6; background: rgba(59, 130, 246, 0.1); backdrop-filter: blur(12px); border-top: 1px solid rgba(59,130,246,0.2); border-right: 1px solid rgba(59,130,246,0.2); border-bottom: 1px solid rgba(59,130,246,0.2); }
+
+        .toast-success {
+            border-left: 4px solid #10b981;
+            background: rgba(16, 185, 129, 0.1);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(16, 185, 129, 0.2);
+            border-right: 1px solid rgba(16, 185, 129, 0.2);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .toast-error {
+            border-left: 4px solid #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(239, 68, 68, 0.2);
+            border-right: 1px solid rgba(239, 68, 68, 0.2);
+            border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .toast-info {
+            border-left: 4px solid #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            border-right: 1px solid rgba(59, 130, 246, 0.2);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
         /* Skeleton Shimmer */
         @keyframes shimmer {
-            0% { background-position: -200px 0; }
-            100% { background-position: calc(200px + 100%) 0; }
+            0% {
+                background-position: -200px 0;
+            }
+
+            100% {
+                background-position: calc(200px + 100%) 0;
+            }
         }
+
         .skeleton {
             background: linear-gradient(90deg, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%);
             background-size: 200px 100%;
@@ -189,12 +229,37 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
             max-width: 90vw;
         }
+
         .toast.show {
             right: 20px;
         }
-        .toast-success { border-left: 4px solid #10b981; background: rgba(16, 185, 129, 0.1); backdrop-filter: blur(12px); border-top: 1px solid rgba(16,185,129,0.2); border-right: 1px solid rgba(16,185,129,0.2); border-bottom: 1px solid rgba(16,185,129,0.2); }
-        .toast-error { border-left: 4px solid #ef4444; background: rgba(239, 68, 68, 0.1); backdrop-filter: blur(12px); border-top: 1px solid rgba(239,68,68,0.2); border-right: 1px solid rgba(239,68,68,0.2); border-bottom: 1px solid rgba(239,68,68,0.2); }
-        .toast-info { border-left: 4px solid #3b82f6; background: rgba(59, 130, 246, 0.1); backdrop-filter: blur(12px); border-top: 1px solid rgba(59,130,246,0.2); border-right: 1px solid rgba(59,130,246,0.2); border-bottom: 1px solid rgba(59,130,246,0.2); }
+
+        .toast-success {
+            border-left: 4px solid #10b981;
+            background: rgba(16, 185, 129, 0.1);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(16, 185, 129, 0.2);
+            border-right: 1px solid rgba(16, 185, 129, 0.2);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .toast-error {
+            border-left: 4px solid #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(239, 68, 68, 0.2);
+            border-right: 1px solid rgba(239, 68, 68, 0.2);
+            border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .toast-info {
+            border-left: 4px solid #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            border-right: 1px solid rgba(59, 130, 246, 0.2);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
     </style>
 
 </head>
@@ -300,7 +365,8 @@
         </button>
 
         <!-- Loading State -->
-        <div id="loader" class="hidden-anim w-full glass-panel rounded-xl p-6 sm:p-8 flex flex-col md:flex-row gap-8 relative overflow-hidden">
+        <div id="loader"
+            class="hidden-anim w-full glass-panel rounded-xl p-6 sm:p-8 flex flex-col md:flex-row gap-8 relative overflow-hidden">
             <div class="w-full md:w-1/3 flex flex-col items-center gap-4">
                 <div class="skeleton w-full aspect-square rounded-xl"></div>
             </div>
@@ -746,15 +812,54 @@ Evaluate and aggregate these face-derived cues (do not report raw feature scores
                 }));
                 const imagesParts = await Promise.all(imagePromises);
 
-                // We no longer need the custom fetch, the smart client handles discovery, fallback, and fetching
-                let resultText = await window.gemini.generateContent(
-                    [
-                        { text: prompt },
-                        ...imagesParts,
-                        { text: "Analyze these images and return the JSON object." }
+                const requestBody = {
+                    model: window.gemini?.selectedModel || MODEL_PRIMARY,
+                    contents: [
+                        {
+                            role: "user",
+                            parts: [
+                                { text: prompt },
+                                ...imagesParts,
+                                { text: "Analyze these images and return the JSON object." }
+                            ]
+                        }
                     ],
-                    "You are an expert biometric evaluator." // Optional instruction override
-                );
+                    systemInstruction: {
+                        parts: [
+                            { text: "You are an expert biometric evaluator." }
+                        ]
+                    }
+                };
+
+                const headers = { 'Content-Type': 'application/json' };
+                if (window.gemini?.hasApiKey() && window.gemini.getApiKey()) {
+                    headers["x-gemini-api-key"] = window.gemini.getApiKey();
+                }
+
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    const err = await response.json().catch(() => ({}));
+                    if (response.status === 429) {
+                        if (window.gemini) window.gemini._showRateLimitBanner();
+                        throw new Error("Rate limit reached. Try again later or switch modes.");
+                    }
+                    throw new Error(`API Error (${response.status}): ${err.error?.message || "Unknown error"}`);
+                }
+
+                const data = await response.json();
+
+                const modelUsed = data._model_used || requestBody.model;
+                if (window.gemini) {
+                    window.gemini._trackUsage(modelUsed);
+                    window.gemini._updateModelUsedBadge(modelUsed);
+                }
+
+                let resultText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
                 // Clean up any potential markdown formatting the LLM might have improperly added
                 resultText = resultText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
@@ -865,12 +970,12 @@ Evaluate and aggregate these face-derived cues (do not report raw feature scores
             toast.className = `toast toast-${type}`;
             toast.innerText = message;
             document.body.appendChild(toast);
-            
+
             // Trigger reflow
             void toast.offsetWidth;
-            
+
             toast.classList.add('show');
-            
+
             setTimeout(() => {
                 toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 400);
@@ -882,4 +987,3 @@ Evaluate and aggregate these face-derived cues (do not report raw feature scores
 </body>
 
 </html>
-
