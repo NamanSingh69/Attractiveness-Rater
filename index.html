@@ -516,8 +516,8 @@ You must document your step-by-step reasoning in the \`feature_evaluations\` arr
   "celebrity_lookalikes": "Name of 1-2 famous individuals with similar bone structure",
   "confidence": float in [0,1],
   "percentile_95_ci": [low_int, high_int],
-  "explanation": ["string summarizing the most impactful features"],
-  "recommendations": ["string actionable grooming/styling advice"],
+  "explanation": ["string summarizing the most impactful features in extreme detail. Write 2-3 comprehensive paragraphs that provide deep, constructive analysis of the subject's bone structure, skin health, and proportionality. Do not be brief."],
+  "recommendations": ["string providing highly specific, actionable grooming, styling, or skincare advice. Write 2-3 detailed paragraphs tailored directly to the flaws or opportunities identified in the explanation. Be as detailed as possible."]
   "faces_detected": integer,
   "quality_flags": { "occlusion_warning": bool, "lighting_warning": bool, "inconsistency_warning": bool, "age_warning": bool, "calibration_warning": bool }
 }
@@ -898,17 +898,17 @@ You must document your step-by-step reasoning in the \`feature_evaluations\` arr
             // 7. Explanations
             const list = document.getElementById('explanationList');
             list.innerHTML = (data.explanation || []).map(item =>
-                `<li class="flex gap-2"><span class="text-cyan-500 mt-1">▹</span><span>${escapeHtml(item)}</span></li>`
+                `<p class="text-gray-300 leading-relaxed text-sm mb-4 last:mb-0"><span class="text-cyan-500 mr-2 font-bold">▹</span>${escapeHtml(item)}</p>`
             ).join('');
 
             // 8. Recommendations
             const recList = document.getElementById('recommendationList');
             if (data.recommendations && data.recommendations.length > 0) {
                 recList.innerHTML = data.recommendations.map(item =>
-                    `<li class="flex gap-2"><span class="text-green-500 mt-1">+</span><span>${escapeHtml(item)}</span></li>`
+                    `<p class="text-gray-300 leading-relaxed text-sm mb-4 last:mb-0"><span class="text-green-500 mr-2 font-bold">+</span>${escapeHtml(item)}</p>`
                 ).join('');
             } else {
-                recList.innerHTML = '<li class="text-gray-600 italic">No specific improvements suggested.</li>';
+                recList.innerHTML = '<p class="text-gray-600 italic">No specific improvements suggested.</p>';
             }
 
             // 9. Footer Stats (Confidence, CI, Flags)
