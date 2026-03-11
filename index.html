@@ -896,15 +896,17 @@ You must document your step-by-step reasoning in the \`feature_evaluations\` arr
             document.getElementById('demographicLabel').innerText = `TARGET: ${nat.toUpperCase()} ${gen.toUpperCase()} ${age}`;
 
             // 7. Explanations
+            const explanations = [].concat(data.explanation || []);
             const list = document.getElementById('explanationList');
-            list.innerHTML = (data.explanation || []).map(item =>
+            list.innerHTML = explanations.filter(Boolean).map(item =>
                 `<p class="text-gray-300 leading-relaxed text-sm mb-4 last:mb-0"><span class="text-cyan-500 mr-2 font-bold">▹</span>${escapeHtml(item)}</p>`
             ).join('');
 
             // 8. Recommendations
+            const recommendations = [].concat(data.recommendations || []);
             const recList = document.getElementById('recommendationList');
-            if (data.recommendations && data.recommendations.length > 0) {
-                recList.innerHTML = data.recommendations.map(item =>
+            if (recommendations.filter(Boolean).length > 0) {
+                recList.innerHTML = recommendations.filter(Boolean).map(item =>
                     `<p class="text-gray-300 leading-relaxed text-sm mb-4 last:mb-0"><span class="text-green-500 mr-2 font-bold">+</span>${escapeHtml(item)}</p>`
                 ).join('');
             } else {
