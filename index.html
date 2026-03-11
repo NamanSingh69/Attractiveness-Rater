@@ -421,18 +421,22 @@
         const loader = document.getElementById('loader');
         const results = document.getElementById('results');
 
-        // Initialize smart client UI
-        window.addEventListener('DOMContentLoaded', () => {
-            if (window.gemini) window.gemini.injectUI();
-
+        // Initialize smart client UI — robust initialization with fallback
+        function initGeminiUI() {
+            if (window.gemini && !document.getElementById('gemini-client-ui-container')) {
+                window.gemini.injectUI();
+            }
             // Update the status text in the header to reflect the selected model
             setTimeout(() => {
                 const headerModel = document.getElementById('header-model');
-                if (headerModel && window.gemini.selectedModel) {
+                if (window.gemini && headerModel && window.gemini.selectedModel) {
                     headerModel.innerText = window.gemini.selectedModel.toUpperCase();
                 }
-            }, 1000); // give it a sec to auto-discover
-        });
+            }, 1500);
+        }
+        // Try on DOMContentLoaded first, fall back to window.load
+        window.addEventListener('DOMContentLoaded', initGeminiUI);
+        window.addEventListener('load', initGeminiUI);
 
         // --- Dynamic System Prompt Generator ---
         function getSystemPrompt(nationality, ageBase, gender) {
