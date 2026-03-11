@@ -220,7 +220,9 @@ class GeminiClient {
 
             return this.availableModels;
         } catch (error) {
-            console.error("Gemini API Model Discovery Failed:", error);
+            if (!error.message.includes("Missing API Key")) {
+                console.warn("Gemini API Model Discovery: " + error.message + " (Using fallback models)");
+            }
             const fallback = this.needsRealTimeData ? CASCADE_REALTIME : CASCADE_STATIC;
             this.availableModels = fallback.map(name => ({
                 name, displayName: name, description: "Fallback model",
