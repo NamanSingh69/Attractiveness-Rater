@@ -476,14 +476,14 @@ Evaluate the following features specifically for ${demographic}. Base your evalu
 5.  **Adiposity**: Facial fat distribution (buccal fullness, mandibular contour).
 
 ### Strict Calculation Rules
-1.  **Calculate Z-Score (`curve_position`)**: Aggregate the individual feature evaluations into a single overall Z-score between -3.0 and +3.0.
+1.  **Calculate Z-Score (\`curve_position\`)**: Aggregate the individual feature evaluations into a single overall Z-score between -3.0 and +3.0.
     - -2.0 = Bottom 2.5%
     - -1.0 = Bottom 16%
     -  0.0 = Average (50th percentile)
     - +1.0 = Top 16% (84th percentile)
     - +2.0 = Top 2.5% (97.5th percentile)
     - +3.0 = Top 0.1% (99.9th percentile)
-2.  **Convert to Percentile (`percentile_score`)**: You MUST output the exact mathematical percentile that corresponds to your calculated `curve_position` Z-score.
+2.  **Convert to Percentile (\`percentile_score\`)**: You MUST output the exact mathematical percentile that corresponds to your calculated \`curve_position\` Z-score.
     - If your Z-score is 0, percentile MUST be 50.
     - If your Z-score is 1.0, percentile MUST be 84.
     - If your Z-score is 2.0, percentile MUST be 98 (approx).
